@@ -40,5 +40,20 @@ let execute (program: int list) =
             loop pc' gram'
     loop 0 program
                 
-let result = program |> fix1202 |> execute
-printfn "%A" result
+let answer1 = program |> fix1202 |> execute |> List.head
+
+let setInput noun verb =
+    writeAt 1 noun >> writeAt 2 verb
+
+let cartesian n f =
+    List.collect (fun x -> List.map (fun y -> f x y) [0..n]) [0..n]
+
+let answer2 =
+    cartesian 99 (fun noun verb -> (noun, verb, program
+                                                |> setInput noun verb 
+                                                |> execute
+                                                |> List.head))
+    |> List.find (fun (_, _, h) -> h = 19690720)
+    |> fun (noun, verb, _) -> 100 * noun + verb
+
+printfn "answer 1: %A, answer 2: %A" answer1 answer2
