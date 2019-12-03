@@ -56,4 +56,15 @@ let intersection (left: 'a list) (right: 'a list) =
 
 let crossPoints = intersection (traceWire wire1) (traceWire wire2)
 
-crossPoints |> List.map manhattanDistance |> List.min
+let answer1 = crossPoints |> List.map manhattanDistance |> List.min
+
+let stepsToCrosspoints wire =
+    let trace = traceWire wire
+    let len = List.length trace
+    List.map (fun c -> len - List.findIndex (fun x -> x = c) trace) crossPoints
+
+let uncurry f (a, b) = f a b
+
+let answer2 = List.zip (stepsToCrosspoints wire1) (stepsToCrosspoints wire2)
+              |> List.map (uncurry (+))
+              |> List.min
