@@ -10,11 +10,10 @@ let digits number: int list =
         number % 10
     ]
 
-let isAscending (number: int list) =
-    match number with
-    | [] -> failwith "asdasd"
-    | _ :: rest -> 
-        List.fold2 (fun s a b -> s && (a <= b)) true number (rest @ [9])
+let uncurry f (a, b) = f a b
+
+let isAscending =
+    List.pairwise >> List.forall (uncurry (<=))
         
 let hasRepeated (number: int list) =
     let ds = number |> List.toArray
