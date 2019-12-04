@@ -1,14 +1,17 @@
 let lower, upper = 372304, 847060
 
-let digits number: int list =
-    [
-        number / 100000 % 10;
-        number / 10000 % 10;
-        number / 1000 % 10;
-        number / 100 % 10;
-        number / 10 % 10;
-        number % 10
-    ]
+let rec repeat f x n =
+    if n = 0 then x else repeat f (f x) (n-1)
+
+let digits' bas number =
+    let rec f acc n =
+        if n = 0 then
+            acc
+        else
+            f ((n % bas) :: acc) (n / bas)
+    f [] number
+
+let digits = digits' 10
 
 let uncurry f (a, b) = f a b
 
