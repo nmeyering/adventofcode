@@ -48,3 +48,19 @@ let (&&>) p1 p2 x =
 
 let criteria2 = criteria &&> (digits >> streaks >> List.contains 2)
 let answer2 = List.filter criteria2 [lower..upper] |> List.length
+
+module Seq =
+    let any (pred: 'a -> bool) (s: 'a seq) =
+        Seq.fold (fun acc b -> acc || pred b) false s
+
+let validNumber (n: int) =
+    let chars = n.ToString ()
+    let pairs = Seq.pairwise chars
+    let pairDecreasing (a, b) = b < a
+    let isDecreasing = Seq.any pairDecreasing pairs
+    let groups = Seq.groupBy id chars |> Seq.map snd
+    let hasPairs = Seq.contains 2 (Seq.map Seq.length groups)
+    not isDecreasing && hasPairs
+let inputRange = {372304 .. 847060}
+
+inputRange |> Seq.filter validNumber |> Seq.length |> printfn "%A"
