@@ -6,9 +6,9 @@ let buildMap (pairs: Orbit list): OrbitMap =
     pairs |> flip |> Map.ofList
 
 
-let rec orbits (directOrbits : OrbitMap) (x : string) : string list =
+let rec orbits' (directOrbits : OrbitMap) (x : string) : string list =
     match Map.tryFind x directOrbits with
-    | Some predecessor -> predecessor :: (orbits directOrbits predecessor)
+    | Some predecessor -> predecessor :: (orbits' directOrbits predecessor)
     | None -> []
 
 // let input = [
@@ -39,8 +39,21 @@ let input =
 
 let orbitMap = input |> buildMap
 
+let orbits = orbits' orbitMap
+
 let folder (s: int) (k: string) _ =
-    let orbitCount = k |> orbits orbitMap |> List.length
+    let orbitCount = k |> orbits |> List.length
     orbitCount + s
-    
-let planets = Map.fold folder 0 orbitMap
+
+let myOrbits = orbits "YOU" |> List.rev
+let santaOrbits = orbits "SAN" |> List.rev
+
+let rec requiredTransfers orbits1 orbits2 =
+    match (orbits1, orbits2) with
+    | [], r -> List.length r
+    | l, [] -> List.length l
+    | (orbit1 :: rest1), (orbit2 :: rest2) ->
+        if orbit1 = orbit2 then requiredTransfers rest1 rest2 else (List.length orbits1) + (List.length orbits2)
+
+let answer1 = Map.fold folder 0 orbitMap
+let answer2 = requiredTransfers myOrbits santaOrbits
