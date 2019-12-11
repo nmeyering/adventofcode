@@ -59,17 +59,26 @@ let binOp (op: int -> int -> int) (program: int list) (index: int): (int list) =
 let executeInstruction (program: Program) (index: int) : (int * Program) =
     let instr = program.Instructions.Item(index)
     let op = opCode instr
+    let param x = decodeParam program.Instructions index x
+    let outParam x = decodeOutputParam program.Instructions index x
     match op with
         | 1 -> let prog = binOp (+) program.Instructions index
                (index + 4, {program with Instructions = prog})
         | 2 -> let prog = binOp (*) program.Instructions index
                (index + 4, {program with Instructions = prog})
-        | 3 -> let pos = decodeOutputParam program.Instructions index 0
+        | 3 -> let pos = outParam 0
                let prog = program.Instructions |> writeAt pos (program.Input ())
                (index + 2, {program with Instructions = prog})
-        | 4 -> decodeParam program.Instructions index 0
-               |> program.Output
+        | 4 -> param 0 |> program.Output
                (index + 2, program)
+        | 5 -> let destination = if (param 0) <> 0 then param 1 else index + 3
+               (destination, program)
+        | 6 -> let destination = if (param 0) = 0 then param 1 else index + 3
+               (destination, program)
+        | 7 -> let prog = binOp (fun x y -> if x < y then 1 else 0) program.Instructions index
+               (index + 4, {program with Instructions = prog})
+        | 8 -> let prog = binOp (fun x y -> if x = y then 1 else 0) program.Instructions index
+               (index + 4, {program with Instructions = prog})
         | 99 -> (-1, program)
         | _ -> failwith "illegal instruction"
 
@@ -84,17 +93,16 @@ let execute (program: Program): Program =
     loop 0 program
                 
 let xs = 
-    // [3;0;4;0;99];
     File.ReadLines(@"day05/input.txt")
-         |> Seq.head 
-         |> fun csv -> csv.Split [|','|]
-         |> Array.map int
-         |> Array.toList
+    |> Seq.head
+    |> fun csv -> csv.Split [|','|]
+    |> Array.map int
+    |> Array.toList
 
 let program: Program = { 
     Instructions = xs
     Output = printfn "%A"
-    Input = fun _ -> 1
+    Input = fun _ -> 5
 }
 
-execute program
+execute program |> ignore
