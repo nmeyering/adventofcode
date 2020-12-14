@@ -17,6 +17,9 @@
     <Compile Include="day09/Program.fs" />
     <Compile Include="day10/Program.fs" />
     <Compile Include="day11/Program.fs" />
+    <Compile Include="day12/Program.fs" />
+    <Compile Include="day13/Program.fs" />
+    <Compile Include="day14/Program.fs" />
   </ItemGroup>
   <Import Project=".paket\Paket.Restore.targets" />
 </Project>
