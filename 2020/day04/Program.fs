@@ -1,7 +1,7 @@
 open System
 open System.IO
 
-let groupBy' f =
+let splitOn f =
     let grouper (acc : string list list) (x: string): (string list list) =
         match acc with
         | [] -> [[x]]
@@ -75,7 +75,7 @@ let lines = File.ReadAllLines(@"day04/input.txt") |> Array.toList
 
 let passports =
     lines
-    |> groupBy' (fun x -> x = "")
+    |> splitOn (fun x -> x = "")
     |> List.map (fun x -> String.Join (" ", x))
     |> List.map ((split " ") >> Seq.toList)
 
