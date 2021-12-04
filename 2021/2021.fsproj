@@ -7,9 +7,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="day01/Program.fs" />
-    <Compile Include="day02\Part2.fs" />
-    <Compile Include="day02\Part1.fs" />
-    <Compile Include="day03\Part1.fs" />
+    <Compile Include="day02/Part2.fs" />
+    <Compile Include="day02/Part1.fs" />
+    <Compile Include="day03/Part1.fs" />
+    <Compile Include="day04/Program.fs" />
   </ItemGroup>
-  <Import Project=".paket\Paket.Restore.targets" />
+  <Import Project=".paket/Paket.Restore.targets" />
 </Project>
