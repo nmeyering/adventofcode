@@ -393,3 +393,6 @@ packages
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+.ionide/
+.config/
