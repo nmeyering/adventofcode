@@ -13,6 +13,7 @@
     <Compile Include="day04/Program.fs" />
     <Compile Include="day05/Program.fs" />
     <Compile Include="day06/Program.fs" />
+    <Compile Include="day07/Program.fs" />
   </ItemGroup>
   <Import Project=".paket/Paket.Restore.targets" />
 </Project>
