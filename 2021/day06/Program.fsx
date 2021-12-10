@@ -3,7 +3,7 @@ open System.IO
 open System.Numerics
 
 let fish =
-    File.ReadLines(@"day06/input.txt")
+    File.ReadLines(@"2021/day06/input.txt")
     |> Seq.head
     |> fun s -> s.Split(',')
     |> Seq.map int
@@ -27,7 +27,7 @@ repeat 80 evolve fish
 |> List.length
 |> printfn "part 1: %A"
 
-type Population = BigInteger array
+type Population = bigint array
 
 let counts = fish |> List.countBy id |> Map
 
@@ -35,12 +35,12 @@ let population =
     [0..8]
     |> List.map (fun i -> Map.tryFind i counts)
     |> List.map (function Some x -> x | None -> 0)
-    |> List.map BigInteger
+    |> List.map bigint
     |> List.toArray
 
 let evolveSmart (population: Population) : Population =
     let dying = population.[0]
-    let shifted = population |> Array.skip 1 |> fun x -> Array.append x [| BigInteger 0 |]
+    let shifted = population |> Array.skip 1 |> fun x -> Array.append x [| 0I |]
     shifted
     |> Array.mapi (fun i x -> match i with
                               | 8 -> dying

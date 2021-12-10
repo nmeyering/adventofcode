@@ -1,7 +1,7 @@
 ﻿open System.IO
 
 let crabs =
-    File.ReadLines(@"day07/input.txt")
+    File.ReadLines(@"2021/day07/input.txt")
     |> Seq.head
     |> fun s -> s.Split(',')
     |> Seq.map int

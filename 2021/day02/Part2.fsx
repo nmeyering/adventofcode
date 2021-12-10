@@ -10,7 +10,7 @@ module Option =
         List.foldBack folder ls (rtn List.empty)
     let sequenceList   ls = traverseList id ls
 
-let lines = File.ReadLines(@"day02/input.txt")
+let lines = File.ReadLines(@"2021/02/input.txt")
 
 type Command =
     Forward of int

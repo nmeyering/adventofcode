@@ -17,7 +17,7 @@ let parseEntry (line: string): Entry =
 
 
 let entries =
-    File.ReadLines(@"day08/input.txt")
+    File.ReadLines(@"2021/day08/input.txt")
     |> Seq.toList
     |> List.map parseEntry
 

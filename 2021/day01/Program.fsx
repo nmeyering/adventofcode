@@ -3,7 +3,7 @@
 open System
 open System.IO
 
-let values = File.ReadLines(@"day01/input.txt")
+let values = File.ReadLines(@"2021/day01/input.txt")
                |> Seq.map int
                |> Seq.toList
 

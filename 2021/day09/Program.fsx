@@ -33,7 +33,7 @@ let lowPoint (arr: int [,]) (p: Point) (here: int): bool =
     |> all (fun x -> x > here)
 
 let grid =
-    File.ReadLines(@"day09/input.txt")
+    File.ReadLines(@"2021/day09/input.txt")
     |> Seq.toArray
     |> Seq.map Seq.toArray
     |> array2D
@@ -54,11 +54,10 @@ lowPoints
 let rec basinSize' (arr : int [,]) (size: int) (x : int) (y : int): int =
     if (arr.[x, y] <> 0) then 0 else
     arr.[x, y] <- 1
-    let ns = neighbors arr (x, y) |> Array.filter (fun (x, y) -> Array2D.get arr x y |> (fun p -> p = 0))
+    let ns = neighbors arr (x, y) |> Array.filter (fun (x, y) -> Array2D.get arr x y |> ((=)0))
     1 + match ns with
         | [||] -> 0
-        | _ -> ns |> Seq.sumBy (fun (x, y) ->
-            basinSize' arr size x y)
+        | _ -> ns |> Seq.sumBy (fun (x, y) -> basinSize' arr size x y)
 
 let basinSize (arr : int [,]) (x : int) (y : int): int =
     let arr' = arr |> Array2D.map (fun p -> if p < 9 then 0 else 9)
