@@ -6,16 +6,17 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="day01/Program.fs" />
-    <Compile Include="day02/Part2.fs" />
-    <Compile Include="day02/Part1.fs" />
-    <Compile Include="day03/Part1.fs" />
-    <Compile Include="day04/Program.fs" />
-    <Compile Include="day05/Program.fs" />
-    <Compile Include="day06/Program.fs" />
-    <Compile Include="day07/Program.fs" />
-    <Compile Include="day08/Program.fs" />
-    <Compile Include="day09/Program.fs" />
+    <None Include="day01\Program.fsx" />
+    <None Include="day02\Part2.fsx" />
+    <None Include="day02\Part1.fsx" />
+    <None Include="day03\Program.fsx" />
+    <None Include="day04\Program.fsx" />
+    <None Include="day05\Program.fsx" />
+    <None Include="day06\Program.fsx" />
+    <None Include="day07\Program.fsx" />
+    <None Include="day08\Program.fsx" />
+    <None Include="day09\Program.fsx" />
+    <None Include="day10\Program.fsx" />
   </ItemGroup>
   <Import Project=".paket/Paket.Restore.targets" />
 </Project>

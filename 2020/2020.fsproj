@@ -18,7 +18,7 @@
     <Compile Include="day10/Program.fs" />
     <Compile Include="day11/Program.fs" />
     <Compile Include="day12/Program.fs" />
-    <Compile Include="day13/Program.fs" />
+    <None Include="day13\Program.fsx" />
     <Compile Include="day14/Program.fs" />
     <Compile Include="day15/Program.fs" />
     <Compile Include="day16/Program.fs" />
