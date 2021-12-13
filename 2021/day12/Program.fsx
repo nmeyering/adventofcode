@@ -23,13 +23,28 @@ let graph =
     |> Seq.map parse
     |> Seq.toList
 
-let allowedEdges (path: Cave list) (edges: (Cave * Cave) list): (Cave * Cave) list =
-    let smallCaveAllowed c path =
-        path
-        |> List.filter ((=)c)
-        |> List.length
-        |> (fun x -> x < 1)
+let smallCaveAllowed1 c path =
+    path
+    |> List.filter ((=)c)
+    |> List.length
+    |> (fun x -> x < 1)
 
+let isSmall = function Small _ -> true | _ -> false
+
+let smallCaveAllowed2 c path =
+    let counts =
+        path
+        |> List.filter isSmall
+        |> List.countBy id
+    match counts |> List.tryFind (fun (x, _) -> x = c) with
+    | None -> true
+    | Some (_, 1) -> 
+        counts
+        |> List.filter (snd >> (fun x -> x > 1))
+        |> List.isEmpty
+    | _ -> false
+
+let allowedEdges smallCaveAllowed (path: Cave list) (edges: (Cave * Cave) list): (Cave * Cave) list =
     let allowed (h :: rest as path) (a, b as edge) =
         match edge with
         | x, End
@@ -44,20 +59,21 @@ let allowedEdges (path: Cave list) (edges: (Cave * Cave) list): (Cave * Cave) li
     | [] -> failwith "empty path"
     | _ -> edges |> List.choose (allowed path)
 
-let extend (graph: (Cave * Cave) list) (path: Cave list): Cave list list =
+let extend s (graph: (Cave * Cave) list) (path: Cave list): Cave list list =
     match path with
     | [] -> failwith "empty path"
     | End :: _ -> [path]
     | _ ->
-    allowedEdges path graph
+    allowedEdges s path graph
     |> List.map snd
     |> List.map (fun dst -> dst :: path)
 
-let allPaths graph =
+let allPaths s graph =
     let rec allPaths' paths =
         let unfinished = paths |> List.filter (fun (h :: path) -> h <> End) |> List.length
         if unfinished = 0 then paths else
-        paths |> List.collect (extend graph) |> allPaths'
+        paths |> List.collect (extend s graph) |> allPaths'
     allPaths' [[Start]]
 
-allPaths graph |> List.length |> printfn "part 1: %A"
+allPaths smallCaveAllowed1 graph |> List.length |> printfn "part 1: %A"
+allPaths smallCaveAllowed2 graph |> List.length |> printfn "part 2: %A"
