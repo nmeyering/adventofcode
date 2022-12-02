@@ -1,14 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>_2022</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="Advent.fs" />
     <Compile Include="day01/Program.fs" />
+    <Compile Include="day02/Program.fsx" />
   </ItemGroup>
-
 </Project>
