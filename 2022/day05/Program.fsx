@@ -30,7 +30,6 @@ let stacks inputs =
         >> Array.rev
         >> Array.toList
     )
-    // |> Array.map (fun x -> new String (x))
     |> Array.indexed
     |> Array.filter (fun (i, _) -> i % 4 = 1)
     |> Array.map snd
