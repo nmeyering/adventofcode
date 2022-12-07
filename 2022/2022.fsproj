@@ -12,5 +12,6 @@
     <Compile Include="day04/Program.fsx" />
     <Compile Include="day05/Program.fsx" />
     <Compile Include="day06/Program.fsx" />
+    <Compile Include="day07/Program.fsx" />
   </ItemGroup>
 </Project>
